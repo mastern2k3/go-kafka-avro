@@ -20,23 +20,16 @@ type AvroConsumer struct {
 type AvroMessage struct {
 	SchemaId       int
 	TopicPartition kafka.TopicPartition
-	Key            interface{}
+	Key            []byte
 	Value          interface{}
 }
 
-// AvroConsumer is a basic consumer to interact with schema registry, avro and kafka
-func NewAvroConsumer(
-	consumer *kafka.Consumer,
-	schemaRegistryServers []string,
-	topic string) *AvroConsumer {
+// NewAvroConsumer creates a new AvroConsumer, a basic consumer to interact with schema registry, avro and kafka
+func NewAvroConsumer(consumer *kafka.Consumer, schemaRegistryServers []string) *AvroConsumer {
 
-	topics := []string{topic}
 	schemaRegistryClient := NewCachedSchemaRegistryClient(schemaRegistryServers)
 
-	return &AvroConsumer{
-		consumer,
-		schemaRegistryClient,
-	}
+	return &AvroConsumer{consumer, schemaRegistryClient}
 }
 
 // GetSchema gets an avro codec from schema-registry service using a schema id
