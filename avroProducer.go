@@ -2,12 +2,13 @@ package kafka
 
 import (
 	"encoding/binary"
-	"github.com/Shopify/sarama"
+
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/linkedin/goavro"
 )
 
 type AvroProducer struct {
-	producer             sarama.SyncProducer
+	producer             *kafka.Producer
 	schemaRegistryClient *CachedSchemaRegistryClient
 }
 

@@ -1,7 +1,7 @@
 package kafka
 
 import (
-	"github.com/Shopify/sarama/mocks"
+	// "github.com/Shopify/sarama/mocks"
 	"testing"
 )
 

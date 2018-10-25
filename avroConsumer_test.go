@@ -2,9 +2,9 @@ package kafka
 
 import (
 	"encoding/binary"
-	"github.com/Shopify/sarama"
-	"github.com/linkedin/goavro"
 	"testing"
+
+	"github.com/linkedin/goavro"
 )
 
 var testData = `{"val":1}`
@@ -29,13 +29,13 @@ func TestAvroConsumer_ProcessAvroMsg(t *testing.T) {
 	schemaRegistryMock := NewCachedSchemaRegistryClient([]string{schemaRegistryTestObject.MockServer.URL})
 	callbacks := &ConsumerCallbacks{}
 	avroConsumer := &avroConsumer{nil, schemaRegistryMock, *callbacks}
-	consumerMsg := &sarama.ConsumerMessage{
-		Value:     getTestAvroMsg(t, schemaRegistryTestObject.Codec),
-		Key:       []byte("key"),
-		Topic:     "test",
-		Partition: 0,
-		Offset:    1,
-	}
+	// consumerMsg := &sarama.ConsumerMessage{
+	// 	Value:     getTestAvroMsg(t, schemaRegistryTestObject.Codec),
+	// 	Key:       []byte("key"),
+	// 	Topic:     "test",
+	// 	Partition: 0,
+	// 	Offset:    1,
+	// }
 	msg, err := avroConsumer.ProcessAvroMsg(consumerMsg)
 	if err != nil {
 		t.Errorf("Error process avro msg: %v", err)
