@@ -29,9 +29,8 @@ func (ap *AvroProducer) GetSchemaId(topic string, avroCodec *goavro.Codec) (int,
 	return schemaId, nil
 }
 
-func (ap *AvroProducer) Add(topic kafka.TopicPartition, schema string, key []byte, value interface{}, deliveryChan chan kafka.Event) error {
+func (ap *AvroProducer) Produce(topic kafka.TopicPartition, avroCodec *goavro.Codec, key []byte, value interface{}, deliveryChan chan kafka.Event) error {
 
-	avroCodec, err := goavro.NewCodec(schema)
 	schemaId, err := ap.GetSchemaId(*topic.Topic, avroCodec)
 
 	if err != nil {
